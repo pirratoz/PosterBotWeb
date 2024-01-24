@@ -16,7 +16,7 @@ class PostgresqlConfig(BaseConfig):
     NAME: str
 
     @property
-    def DSN(self) -> str:
+    def URI(self) -> str:
         return PostgresDsn.build(
             scheme="postgresql+asyncpg",
             host=self.HOST,
