@@ -2,7 +2,7 @@ from typing import Any
 
 from sqlalchemy.dialects.postgresql import (
     BIGINT,
-    JSONB,
+    JSON,
 )
 from sqlalchemy.orm import (
     mapped_column,
@@ -18,6 +18,6 @@ class Template(BaseModel):
     
     id: Mapped[int] = mapped_column(BIGINT, primary_key=True)
     from_chat_id: Mapped[int] = mapped_column(BIGINT)
-    media: Mapped[dict[str, Any]] = mapped_column(JSONB)
+    media: Mapped[dict[str, Any]] = mapped_column(JSON)
 
     publications = relationship("Publication", backref="templates", cascade="all, delete-orphan")
