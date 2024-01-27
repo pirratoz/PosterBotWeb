@@ -18,5 +18,6 @@ class Media(BaseModel):
 
 class TemplateDto(BaseModelDto):
     id: int
+    title: str
     from_chat_id: int
     media: Media

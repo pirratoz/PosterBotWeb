@@ -1,5 +1,6 @@
 from typing import Any
 
+from sqlalchemy import String
 from sqlalchemy.dialects.postgresql import (
     BIGINT,
     JSON,
@@ -17,6 +18,7 @@ class Template(BaseModel):
     __tablename__ = "templates"
     
     id: Mapped[int] = mapped_column(BIGINT, primary_key=True)
+    title: Mapped[str] = mapped_column(String)
     from_chat_id: Mapped[int] = mapped_column(BIGINT)
     media: Mapped[dict[str, Any]] = mapped_column(JSON)
 

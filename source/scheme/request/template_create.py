@@ -15,5 +15,6 @@ class Media(BaseModel):
 
 
 class TemplateCreateRequest(BaseModel):
+    title: str
     from_chat_id: int
     media: Media

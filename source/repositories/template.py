@@ -29,6 +29,7 @@ class TemplateRepository(BaseRepository):
 
     async def create(self, *, template: TemplateCreateRequest) -> TemplateDto | None:
         stmt = insert(Template).values(
+            title=template.title,
             from_chat_id=template.from_chat_id,
             media=template.media.model_dump()
         ).returning(Template.id)
