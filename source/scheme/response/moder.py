@@ -3,7 +3,8 @@ from pydantic import BaseModel
 
 class ModerResponse(BaseModel):
     id: int
-    title: str
+    fullname: str
+    username: str
 
 
 class ModerManyResponse(BaseModel):
