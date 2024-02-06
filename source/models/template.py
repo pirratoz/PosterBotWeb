@@ -1,9 +1,8 @@
-from typing import Any
-
 from sqlalchemy import String
 from sqlalchemy.dialects.postgresql import (
     BIGINT,
     JSON,
+    ARRAY,
 )
 from sqlalchemy.orm import (
     mapped_column,
@@ -12,6 +11,11 @@ from sqlalchemy.orm import (
 )
 
 from source.models.base_model import BaseModel
+from source.dto import (
+    T_keyboard,
+    T_entities,
+    T_media,
+)
 
 
 class Template(BaseModel):
@@ -19,7 +23,10 @@ class Template(BaseModel):
     
     id: Mapped[int] = mapped_column(BIGINT, primary_key=True)
     title: Mapped[str] = mapped_column(String)
-    from_chat_id: Mapped[int] = mapped_column(BIGINT)
-    media: Mapped[dict[str, Any]] = mapped_column(JSON)
+    
+    text: Mapped[str] = mapped_column(String)
+    entities: Mapped[T_entities] = mapped_column(ARRAY(JSON))
+    media: Mapped[T_media] = mapped_column(ARRAY(JSON))
+    keyboard: Mapped[T_keyboard] = mapped_column(ARRAY(JSON, dimensions=2))
 
     publications = relationship("Publication", backref="templates", cascade="all, delete-orphan")

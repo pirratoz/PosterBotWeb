@@ -30,8 +30,10 @@ class TemplateRepository(BaseRepository):
     async def create(self, *, template: TemplateCreateRequest) -> TemplateDto | None:
         stmt = insert(Template).values(
             title=template.title,
-            from_chat_id=template.from_chat_id,
-            media=template.media.model_dump()
+            text=template.text,
+            entities=template.entities,
+            keyboard=[[button.model_dump() for button in line] for line in template.keyboard],
+            media=[media.model_dump() for media in template.media]
         ).returning(Template.id)
         result_id = (await self.session.execute(stmt)).one()[0]
         return await self.get_template_by_id(result_id)

@@ -1,20 +1,22 @@
-from typing import Any
-
 from pydantic import BaseModel
 
-
-class MediaIds(BaseModel):
-    photo: list[int] | None = []
-    video: list[int] | None = []
+from source.dto import T_entities
 
 
 class Media(BaseModel):
-    text_message_id: int
-    media_ids: MediaIds
-    keyboard: list[list[dict[str, Any]]] | None = []
+    file_id: str
+    type: str
+    uuid: str
+
+
+class Button(BaseModel):
+    text: str
+    url: str
 
 
 class TemplateCreateRequest(BaseModel):
     title: str
-    from_chat_id: int
-    media: Media
+    text: str
+    entities: T_entities
+    media: list[Media]
+    keyboard: list[list[Button]]

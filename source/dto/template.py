@@ -1,23 +1,33 @@
-from typing import Any
+from typing import (
+    TypeVar,
+    Any,
+)
 
 from pydantic import BaseModel
 
 from source.dto.base_dto import BaseModelDto
 
 
-class MediaIds(BaseModel):
-    photo: list[int] | None = []
-    video: list[int] | None = []
+T_entities = TypeVar("T_entities", bound=list[dict[str, Any]])
+T_media = TypeVar("T_media", bound=list[dict[str, Any]])
+T_keyboard = TypeVar("T_keyboard", bound=list[list[dict[str, Any]]])
 
 
 class Media(BaseModel):
-    text_message_id: int
-    media_ids: MediaIds
-    keyboard: list[list[dict[str, Any]]] | None = []
+    file_id: str
+    type: str
+    uuid: str
+
+
+class Button(BaseModel):
+    text: str
+    url: str
 
 
 class TemplateDto(BaseModelDto):
     id: int
     title: str
-    from_chat_id: int
-    media: Media
+    text: str
+    entities: T_entities
+    media: list[Media] 
+    keyboard: list[list[Button]]
