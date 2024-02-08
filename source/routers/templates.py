@@ -20,6 +20,7 @@ from source.usecases import (
     TemplateCreateUseCase,
     TemplateDeleteUseCase,
     TemplateGetAllUseCase,
+    TemplateUpdateUseCase,
 )
 
 
@@ -56,4 +57,12 @@ async def delete_template(template_id: int, session: Session = Depends()) -> Tem
     template = await TemplateDeleteUseCase(
         TemplateRepository(session)
     ).execute(template_id)
+    return JSONResponse(template.model_dump(), status_code=status.HTTP_200_OK)
+
+
+@templates.put("/{template_id}")
+async def delete_template(template_id: int, data: TemplateCreateRequest, session: Session = Depends()) -> TemplateResponse:
+    template = await TemplateUpdateUseCase(
+        TemplateRepository(session)
+    ).execute(template_id, template=data)
     return JSONResponse(template.model_dump(), status_code=status.HTTP_200_OK)

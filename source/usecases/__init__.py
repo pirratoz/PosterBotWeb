@@ -8,6 +8,7 @@ __all__ = [
     "ModerCreateUseCase",
     "ModerDeleteUseCase",
     "TemplateGetByIdUseCase",
+    "TemplateUpdateUseCase",
     "TemplateGetAllUseCase",
     "TemplateCreateUseCase",
     "TemplateDeleteUseCase",
@@ -32,6 +33,7 @@ from source.usecases.template_get_by_id_uc import TemplateGetByIdUseCase
 from source.usecases.template_get_all_uc import TemplateGetAllUseCase
 from source.usecases.template_create_uc import TemplateCreateUseCase
 from source.usecases.template_delete_uc import TemplateDeleteUseCase
+from source.usecases.template_update_uc import TemplateUpdateUseCase
 
 from source.usecases.publication_get_active_uc import PublicationGetAllActiveUseCase
 from source.usecases.publication_get_for_chat_uc import PublicationGetForChatUseCase
