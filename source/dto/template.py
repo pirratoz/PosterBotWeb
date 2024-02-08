@@ -16,7 +16,7 @@ T_keyboard = TypeVar("T_keyboard", bound=list[list[dict[str, Any]]])
 class Media(BaseModel):
     file_id: str
     type: str
-    uuid: str
+    message_id: int
 
 
 class Button(BaseModel):

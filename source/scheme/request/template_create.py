@@ -6,7 +6,7 @@ from source.dto import T_entities
 class Media(BaseModel):
     file_id: str
     type: str
-    uuid: str
+    message_id: int
 
 
 class Button(BaseModel):
