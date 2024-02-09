@@ -7,13 +7,17 @@ from source.scheme.request.template_create import (
 )
 
 
+class Attachments(BaseModel):
+    entities: T_entities | None = []
+    media: list[Media] | None = []
+    keyboard: list[list[Button]] | None = []
+
+
 class TemplateResponse(BaseModel):
     id: int
     title: str
     text: str
-    entities: T_entities
-    media: list[Media]
-    keyboard: list[list[Button]]
+    attachments: Attachments
 
 
 class TemplateManyResponse(BaseModel):

@@ -64,5 +64,5 @@ async def delete_template(template_id: int, session: Session = Depends()) -> Tem
 async def delete_template(template_id: int, data: TemplateCreateRequest, session: Session = Depends()) -> TemplateResponse:
     template = await TemplateUpdateUseCase(
         TemplateRepository(session)
-    ).execute(template_id, template=data)
+    ).execute(template_id, data)
     return JSONResponse(template.model_dump(), status_code=status.HTTP_200_OK)

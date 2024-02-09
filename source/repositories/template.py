@@ -28,11 +28,7 @@ class TemplateRepository(BaseRepository):
 
     async def create(self, *, template: TemplateCreateRequest) -> TemplateDto | None:
         stmt = insert(Template).values(
-            title=template.title,
-            text=template.text,
-            entities=template.entities,
-            keyboard=[[button.model_dump() for button in line] for line in template.keyboard],
-            media=[media.model_dump() for media in template.media]
+            **template.model_dump()
         ).returning(Template.id)
         result_id = (await self.session.execute(stmt)).one()[0]
         return await self.get_template_by_id(result_id)
@@ -41,11 +37,7 @@ class TemplateRepository(BaseRepository):
         stmt = update(Template).where(
             Template.id == template_id
         ).values(
-            title=template.title,
-            text=template.text,
-            entities=template.entities,
-            keyboard=[[button.model_dump() for button in line] for line in template.keyboard],
-            media=[media.model_dump() for media in template.media]
-        ).returning(Template.id)
+            **template.model_dump()
+        )
         await self.session.execute(stmt)
         return await self.get_template_by_id(template_id)

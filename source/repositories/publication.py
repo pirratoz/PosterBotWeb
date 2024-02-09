@@ -37,25 +37,9 @@ class PublicationRepository(BaseRepository):
         items = (await self.session.execute(stmt)).scalars().all()
         return PublicationDto.many_from_orm(items)
 
-    async def get_publication_by_created_time(self, date: datetime) -> PublicationDto | None:
-        stmt = select(Publication).where(Publication.created_at == date)
-        item = (await self.session.execute(stmt)).scalar_one_or_none()
-        return PublicationDto.one_from_orm(item)
-
     async def create(self, *, publication: PublicationCreateRequest) -> PublicationDto | None:
         stmt = insert(Publication).values(
-            template_id=publication.template_id,
-            publish=publication.publish,
-            finish=publication.finish,
-            chat_id=publication.chat_id,
-            message_id=publication.message_id,
-            pin=publication.pin,
-            delete=publication.delete,
-            published=publication.published,
-            deleted=publication.deleted,
-            pinned=publication.pinned,
-            archived=publication.archived,
-            created_at=publication.created_at
+            **publication.model_dump()
         ).returning(Publication.id)
         result_id = (await self.session.execute(stmt)).one()[0]
         return await self.get_publication_by_id(result_id)

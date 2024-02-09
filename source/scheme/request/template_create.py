@@ -14,9 +14,13 @@ class Button(BaseModel):
     url: str
 
 
+class Attachments(BaseModel):
+    entities: T_entities | None = []
+    media: list[Media] | None = []
+    keyboard: list[list[Button]] | None = []
+
+
 class TemplateCreateRequest(BaseModel):
     title: str
     text: str
-    entities: T_entities
-    media: list[Media]
-    keyboard: list[list[Button]]
+    attachments: Attachments
